@@ -10,7 +10,7 @@
 
     <dimen name="circleRadius">30dp</dimen>
     <dimen name="textOffset">20dp</dimen>
-    <dimen name="strokeWidth">4dp</dimen>
+    <dimen name="strokeWidth">10dp</dimen>
 
     <dimen name="textSize">18sp</dimen>
 </resources>

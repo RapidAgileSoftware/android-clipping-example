@@ -72,7 +72,7 @@ class ClippedView @JvmOverloads constructor(
             clipRectBottom
         )
         // we apply to entire canvas, but only clipped area is filled -> creates white rectangle
-        canvas.drawColor(Color.WHITE)
+        canvas.drawColor(Color.GREEN)
         // lets draw a red diagonal line
         paint.color = Color.YELLOW
         canvas.drawLine(
@@ -80,8 +80,13 @@ class ClippedView @JvmOverloads constructor(
             clipRectRight, clipRectBottom,
             paint
         )
+        canvas.drawLine(
+            clipRectLeft,  clipRectBottom,
+            clipRectRight,clipRectTop,
+            paint
+        )
         // draw green circle
-        paint.color = Color.GREEN
+        paint.color = Color.BLACK
         canvas.drawCircle(
             circleRadius, clipRectBottom - circleRadius,
             circleRadius,
@@ -97,6 +102,16 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawBackAndUnclippedRectangle(canvas:Canvas){
+        //set entire background to gray
+        canvas.drawColor(Color.GRAY)
+        // save the canvas
+        canvas.save()
+        // translate to first column and row position
+        canvas.translate(columnOne,rowOne)
+        // draw our shape
+        drawClippedRectangle(canvas)
+        // restore canvas to its previous state
+        canvas.restore()
 
     }
     private fun drawDifferenceClippingExample(canvas: Canvas){

@@ -10,5 +10,5 @@
 
     <dimen name="circleRadius">40dp</dimen>
     <dimen name="textOffset">25dp</dimen>
-    <dimen name="strokeWidth">6</dimen>
+    <dimen name="strokeWidth">14</dimen>
 </resources>
