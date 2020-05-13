@@ -43,7 +43,9 @@ class ClippedView @JvmOverloads constructor(
     private val rowTwo = rowOne + rectInset + clipRectBottom
     private val rowThree = rowTwo + rectInset + clipRectBottom
     private val rowFour = rowThree + rectInset + clipRectBottom
-    private val textRow = rowFour + (1.5 * clipRectBottom)
+    // must be a floatto work with canvas.translate
+    private val textRow = rowFour + (1.5f * clipRectBottom)
+    // Type Error: private val textRow = rowFour + (1.5 * clipRectBottom) since it produces Double
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -252,12 +254,33 @@ class ClippedView @JvmOverloads constructor(
         drawClippedRectangle(canvas)
         canvas.restore()
     }
-    private fun drawSkewedTextExample(canvas: Canvas){
 
-    }
     private fun drawTranslatedTextExample(canvas: Canvas){
-
+        canvas.save()
+        paint.color = Color.BLACK
+        // Align the RIGHT side of the text with the origin.
+        paint.textAlign = Paint.Align.LEFT
+        // Apply transformation to canvas.
+        canvas.translate(columnTwo,textRow)
+        // Draw text.
+        canvas.drawText(context.getString(R.string.translated),
+            clipRectLeft,clipRectTop,paint)
+        canvas.restore()
     }
+    // distorted text
+    private fun drawSkewedTextExample(canvas: Canvas){
+        canvas.save()
+        paint.color = Color.YELLOW
+        paint.textAlign = Paint.Align.RIGHT
+        // Position text.
+        canvas.translate(columnTwo, textRow)
+        // Apply skew transformation.
+        canvas.skew(0.2f, 0.3f)
+        canvas.drawText(context.getString(R.string.skewed),
+            clipRectLeft, clipRectTop, paint)
+        canvas.restore()
+    }
+
     private fun drawQuickRejectExample(canvas: Canvas){
 
     }
