@@ -146,7 +146,30 @@ class ClippedView @JvmOverloads constructor(
         canvas.restore()
 
     }
+    // clips the circle
     private fun drawCircularClippingExample(canvas: Canvas){
+        // save the canvas so we can restore the state before the following transformations
+        canvas.save()
+        // put it in the first column of the second row
+        canvas.translate(columnOne, rowTwo)
+        // Clears any lines and curves from the path but unlike reset(),
+        // keeps the internal data structure for faster reuse.
+        path.rewind()
+        path.addCircle(
+            circleRadius,clipRectBottom - circleRadius,
+            circleRadius,Path.Direction.CCW
+        )
+        // The method clipPath(path, Region.Op.DIFFERENCE) was deprecated in
+        // API level 26. The recommended alternative method is
+        // clipOutPath(Path), which is currently available in
+        // API level 26 and higher.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipPath(path, Region.Op.DIFFERENCE)
+        } else {
+            canvas.clipOutPath(path)
+        }
+        drawClippedRectangle(canvas)
+        canvas.restore()
 
     }
     private fun drawIntersectionClippingExample(canvas: Canvas){
